@@ -20,10 +20,11 @@ int n;
 
 // Xử lí input
 void input() {
-    cin >> n;
+    fstream fi("Graph.txt");
+    fi >> n;
     for(int i = 0; i < n; i++) {
         for(int j = 0; j < n; j++) {
-            double w; cin >> w;
+            double w; fi >> w;
             if(j <= i) continue;
 
             if(w > 0) {
@@ -33,6 +34,7 @@ void input() {
             
         }
     }
+    fi.close();
 }
 
 // Sort các cạnh tăng dần theo weight
@@ -65,6 +67,7 @@ bool isUnion(int u, int v) {
 
 // Thuật toán Kruskal
 void kruskal() {
+    fstream fo("Kruskal.txt", ios::out);
     vector<Edge*> tree;
     double totalWeight = 0;
     sort(edges.begin(), edges.end(), myCmp);
@@ -77,7 +80,8 @@ void kruskal() {
         // Nếu đủ n - 1 cạnh thì dừng
         if(tree.size() == n - 1) break;
     }
-    cout << round(totalWeight * 100)/100 << endl;
+    fo << round(totalWeight * 100)/100 << endl;
+    fo.close();
 }
 
 int main() {
